@@ -6,9 +6,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.entity.Player;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public class AdaptiveFormatter<T> {
+
+    private final List<ConditionRule<T>> conditions = new ArrayList<>();
+    private final List<VariableRule<T>>  variables  = new ArrayList<>();
 
     private static class ConditionRule<T> {
 
@@ -16,7 +21,7 @@ public class AdaptiveFormatter<T> {
         final Pattern             pattern;
         final DisplayCondition<T> condition;
 
-        ConditionRule(@NonNull String tag, @NonNull DisplayCondition<T> condition) {
+        ConditionRule(String tag, DisplayCondition<T> condition) {
             this.openTag = "<if_" + tag + ">";
 
             this.pattern = Pattern.compile("<if_" + tag + ">(.*?)</if_" + tag + ">");
@@ -29,25 +34,22 @@ public class AdaptiveFormatter<T> {
         final String              placeholder;
         final VariableReplacer<T> replacer;
 
-        VariableRule(@NonNull String tag, @NonNull VariableReplacer<T> replacer) {
+        VariableRule(String tag, VariableReplacer<T> replacer) {
             this.placeholder = "{" + tag + "}";
             this.replacer = replacer;
         }
     }
 
-    private final List<ConditionRule<T>> conditions = new ArrayList<>();
-    private final List<VariableRule<T>>  variables  = new ArrayList<>();
-
-    public void registerCondition(@NonNull String tag, @NonNull DisplayCondition<T> condition) {
+    public void registerCondition(String tag, DisplayCondition<T> condition) {
         this.conditions.add(new ConditionRule<>(tag, condition));
     }
 
-    public void registerVariable(@NonNull String tag, @NonNull VariableReplacer<T> replacer) {
+    public void registerVariable(String tag, VariableReplacer<T> replacer) {
         this.variables.add(new VariableRule<>(tag, replacer));
     }
 
 
-    public @NonNull String formatLine(@NonNull String line, @NonNull T source, @NonNull Player player) {
+    public String formatLine(String line, T source, @Nullable Player player) {
         if (line.isEmpty()) return line;
 
         if (line.contains("<if_")) {
@@ -61,7 +63,7 @@ public class AdaptiveFormatter<T> {
         return line.trim();
     }
 
-    private @NonNull String validateConditions(@NonNull String line, @NonNull T source, @NonNull Player player) {
+    private String validateConditions(String line, T source, @Nullable Player player) {
         for (ConditionRule<T> rule : this.conditions) {
             if (!line.contains(rule.openTag)) continue;
 
@@ -84,7 +86,7 @@ public class AdaptiveFormatter<T> {
         return line;
     }
 
-    private @NonNull String replaceVariables(@NonNull String line, @NonNull T source, @NonNull Player player) {
+    private String replaceVariables(String line, T source, @Nullable Player player) {
         for (VariableRule<T> rule : variables) {
             if (line.contains(rule.placeholder)) {
                 String replacementValue = rule.replacer.replace(source, player);
