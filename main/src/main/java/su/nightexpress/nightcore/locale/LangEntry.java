@@ -175,6 +175,7 @@ public class LangEntry<T extends LangValue> implements LangElement {
         }
 
         @NonNull
+        @Deprecated
         public DialogElementLocale dialogElement(int width, @NonNull String... contents) {
             return DialogElementLocale.create(this.path, width, contents);
         }

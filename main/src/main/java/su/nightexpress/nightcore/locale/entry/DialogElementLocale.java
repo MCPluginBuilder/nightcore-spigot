@@ -47,6 +47,7 @@ public class DialogElementLocale extends LangEntry<DialogElementLocale.Value> {
         return this.value.contents();
     }
 
+    @Deprecated
     public int width() {
         return this.value.width();
     }

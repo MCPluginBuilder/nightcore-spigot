@@ -1,7 +1,7 @@
 package su.nightexpress.nightcore.ui.dialog.build;
 
 import org.bukkit.inventory.ItemStack;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
 import su.nightexpress.nightcore.bridge.dialog.wrap.body.WrappedItemDialogBody;
 import su.nightexpress.nightcore.bridge.dialog.wrap.body.WrappedPlainMessageDialogBody;
@@ -9,67 +9,64 @@ import su.nightexpress.nightcore.locale.entry.DialogElementLocale;
 import su.nightexpress.nightcore.locale.entry.TextLocale;
 import su.nightexpress.nightcore.util.bukkit.NightItem;
 
-public class DialogBodies {
+@NullMarked
+public final class DialogBodies {
 
-    /*@NonNull
-    public static WrappedItemDialogBody item(@NonNull ItemStack item,
-                                             @Nullable WrappedPlainMessageDialogBody description,
-                                             boolean showDecorations,
-                                             boolean showTooltip,
-                                             int width,
-                                             int height) {
-        return item(item).description(description).showDecorations(showDecorations).showTooltip(showTooltip).width(width).height(height).build();
-    }*/
+    private DialogBodies() {
+    }
 
-    public static WrappedItemDialogBody.@NonNull Builder item(@NonNull NightItem item) {
+    public static WrappedItemDialogBody.Builder item(NightItem item) {
         return new WrappedItemDialogBody.Builder(item.getItemStack());
     }
 
-    public static WrappedItemDialogBody.@NonNull Builder item(@NonNull NightItem item, @NonNull DialogElementLocale description) {
+    public static WrappedItemDialogBody.Builder item(NightItem item,
+                                                     DialogElementLocale description) {
         return new WrappedItemDialogBody.Builder(item.getItemStack()).description(plainMessage(description));
     }
 
-    public static WrappedItemDialogBody.@NonNull Builder item(@NonNull ItemStack itemStack) {
+    public static WrappedItemDialogBody.Builder item(ItemStack itemStack) {
         return new WrappedItemDialogBody.Builder(itemStack);
     }
 
-    public static WrappedItemDialogBody.@NonNull Builder item(@NonNull ItemStack itemStack, @NonNull DialogElementLocale description) {
+    public static WrappedItemDialogBody.Builder item(ItemStack itemStack,
+                                                     DialogElementLocale description) {
         return new WrappedItemDialogBody.Builder(itemStack).description(plainMessage(description));
     }
 
+    public static WrappedPlainMessageDialogBody.Builder plain() {
+        return new WrappedPlainMessageDialogBody.Builder();
+    }
 
-    @NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull DialogElementLocale locale) {
+    public static WrappedPlainMessageDialogBody.Builder plain(String... contents) {
+        return plain().contents(contents);
+    }
+
+    public static WrappedPlainMessageDialogBody.Builder plain(TextLocale locale) {
+        return plain().contents(locale.text());
+    }
+
+    public static WrappedPlainMessageDialogBody.Builder plain(DialogElementLocale locale) {
+        return plain().contents(locale.contents());
+    }
+
+    @Deprecated
+    public static WrappedPlainMessageDialogBody plainMessage(DialogElementLocale locale) {
         return new WrappedPlainMessageDialogBody(locale.contents(), locale.width());
     }
 
-    @NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull TextLocale locale) {
+    public static WrappedPlainMessageDialogBody plainMessage(TextLocale locale) {
         return plainMessage(locale.text());
     }
 
-    /*@NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull String contents) {
-        return plainMessage(NightMessage.parse(contents));
-    }*/
-
-    @NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull String contents) {
+    public static WrappedPlainMessageDialogBody plainMessage(String contents) {
         return new WrappedPlainMessageDialogBody(contents);
     }
 
-    @NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull TextLocale locale, int width) {
+    public static WrappedPlainMessageDialogBody plainMessage(TextLocale locale, int width) {
         return plainMessage(locale.text(), width);
     }
 
-    /*@NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull String contents, int width) {
-        return plainMessage(NightMessage.parse(contents), width);
-    }*/
-
-    @NonNull
-    public static WrappedPlainMessageDialogBody plainMessage(@NonNull String contents, int width) {
+    public static WrappedPlainMessageDialogBody plainMessage(String contents, int width) {
         return new WrappedPlainMessageDialogBody(contents, width);
     }
 }
