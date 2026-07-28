@@ -39,10 +39,10 @@ public record WrappedPlainMessageDialogBody(String contents, int width) implemen
         private int    width    = 400;
 
         @Nullable
-        private PlaceholderReplacer placeholders;
+        private PlaceholderReplacer replacer;
 
         public WrappedPlainMessageDialogBody build() {
-            PlaceholderReplacer replacer = this.placeholders;
+            PlaceholderReplacer replacer = this.replacer;
             String content = this.contents;
 
             if (replacer != null) {
@@ -59,6 +59,11 @@ public record WrappedPlainMessageDialogBody(String contents, int width) implemen
 
         public Builder width(int width) {
             this.width = Math.clamp(width, DialogDefaults.MIN_WIDTH, DialogDefaults.MAX_WIDTH);
+            return this;
+        }
+
+        public Builder placeholders(PlaceholderReplacer replacer) {
+            this.replacer = replacer;
             return this;
         }
     }
