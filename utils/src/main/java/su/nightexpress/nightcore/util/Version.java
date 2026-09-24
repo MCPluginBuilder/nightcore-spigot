@@ -28,8 +28,10 @@ public enum Version {
     MC_26_1("26.1", 4786, Status.DROPPED),
     MC_26_1_1("26.1.1", 4788),
     MC_26_1_2("26.1.2", 4790),
-    MC_26_2("26.2", 4890), // TODO Predicted from snapshot 3
-    UNKNOWN("Unknown", 10000),
+    MC_26_2("26.2", 4903),
+    MC_26_3("26.3", 5023),
+    MC_26_4("26.4", 5119),
+    UNKNOWN("Unknown", 10_000),
     ;
 
     private static final boolean IS_PAPER = checkPaper();
