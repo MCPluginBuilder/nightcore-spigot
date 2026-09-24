@@ -32,6 +32,7 @@ public class NbtUtil {
 
     public static final Method AS_NMS_COPY    = Reflex.safeMethod(CLS_CRAFT_ITEM_STACK, "asNMSCopy", ItemStack.class);
     public static final Method AS_BUKKIT_COPY = Reflex.safeMethod(CLS_CRAFT_ITEM_STACK, "asBukkitCopy",
+        "asBukkitMirror",
         CLS_NMS_ITEM_STACK);
 
     public static final Object REGISTRY_ACCESS = Reflex.invokeMethod(GET_MC_REGISTRY, null);
