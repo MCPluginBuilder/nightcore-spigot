@@ -22,6 +22,7 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.inventory.InventoryView;
@@ -56,11 +57,13 @@ import su.nightexpress.nightcore.bridge.chat.UniversalChatListenerCallback;
 import su.nightexpress.nightcore.bridge.dialog.adapter.DialogAdapter;
 import su.nightexpress.nightcore.bridge.dialog.response.DialogClickHandler;
 import su.nightexpress.nightcore.bridge.dialog.wrap.WrappedDialog;
+import su.nightexpress.nightcore.bridge.entity.WrappedTextDisplay;
 import su.nightexpress.nightcore.bridge.key.AdaptedKey;
 import su.nightexpress.nightcore.bridge.paper.bossbar.PaperBossBar;
 import su.nightexpress.nightcore.bridge.paper.bossbar.PaperBossBarAdapter;
 import su.nightexpress.nightcore.bridge.paper.dialog.PaperDialogAdapter;
 import su.nightexpress.nightcore.bridge.paper.dialog.PaperDialogListener;
+import su.nightexpress.nightcore.bridge.paper.entity.PaperTextDisplay;
 import su.nightexpress.nightcore.bridge.paper.event.PaperChatListener;
 import su.nightexpress.nightcore.bridge.paper.event.PaperEventAdapter;
 import su.nightexpress.nightcore.bridge.paper.key.PaperKey;
@@ -129,6 +132,11 @@ public class PaperBridge implements Software {
 
     public AdaptedScheduler getScheduler(JavaPlugin plugin) {
         return Version.isFolia() ? new FoliaScheduler(plugin) : new PaperScheduler(plugin);
+    }
+
+    @Override
+    public WrappedTextDisplay wrapTextDisplay(TextDisplay textDisplay) {
+        return new PaperTextDisplay(textDisplay, this.textComponentAdapter);
     }
 
     @Override

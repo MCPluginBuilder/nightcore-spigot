@@ -16,6 +16,7 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.inventory.InventoryView;
@@ -35,6 +36,7 @@ import su.nightexpress.nightcore.bridge.bossbar.NightBossBar;
 import su.nightexpress.nightcore.bridge.chat.UniversalChatListenerCallback;
 import su.nightexpress.nightcore.bridge.dialog.response.DialogClickHandler;
 import su.nightexpress.nightcore.bridge.dialog.wrap.WrappedDialog;
+import su.nightexpress.nightcore.bridge.entity.WrappedTextDisplay;
 import su.nightexpress.nightcore.bridge.event.EventAdapter;
 import su.nightexpress.nightcore.bridge.key.AdaptedKey;
 import su.nightexpress.nightcore.bridge.scheduler.AdaptedScheduler;
@@ -101,6 +103,8 @@ public interface Software {
 
 
     AdaptedScheduler getScheduler(JavaPlugin plugin);
+
+    WrappedTextDisplay wrapTextDisplay(TextDisplay display);
 
     void disallowLogin(AsyncPlayerPreLoginEvent event, AsyncPlayerPreLoginEvent.Result result,
                        NightComponent message);

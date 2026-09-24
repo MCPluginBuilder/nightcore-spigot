@@ -30,6 +30,7 @@ import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.inventory.InventoryView;
@@ -53,6 +54,7 @@ import su.nightexpress.nightcore.bridge.chat.UniversalChatListenerCallback;
 import su.nightexpress.nightcore.bridge.dialog.adapter.DialogAdapter;
 import su.nightexpress.nightcore.bridge.dialog.response.DialogClickHandler;
 import su.nightexpress.nightcore.bridge.dialog.wrap.WrappedDialog;
+import su.nightexpress.nightcore.bridge.entity.WrappedTextDisplay;
 import su.nightexpress.nightcore.bridge.key.AdaptedKey;
 import su.nightexpress.nightcore.bridge.key.exception.InvalidKeyException;
 import su.nightexpress.nightcore.bridge.scheduler.AdaptedScheduler;
@@ -60,6 +62,7 @@ import su.nightexpress.nightcore.bridge.spigot.bossbar.SpigotBossBar;
 import su.nightexpress.nightcore.bridge.spigot.bossbar.SpigotBossBarAdapter;
 import su.nightexpress.nightcore.bridge.spigot.dialog.SpigotDialogAdapter;
 import su.nightexpress.nightcore.bridge.spigot.dialog.SpigotDialogListener;
+import su.nightexpress.nightcore.bridge.spigot.entity.SpigotTextDisplay;
 import su.nightexpress.nightcore.bridge.spigot.event.SpigotChatListener;
 import su.nightexpress.nightcore.bridge.spigot.event.SpigotEventAdapter;
 import su.nightexpress.nightcore.bridge.spigot.key.SpigotKey;
@@ -130,7 +133,8 @@ public class SpigotBridge implements Software {
 
             }
             catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException e) {
-                throw new IllegalStateException("Failed to initialize reflection for Level.getNextEntityId(). Ensure mappings are correct.", e);
+                throw new IllegalStateException(
+                    "Failed to initialize reflection for Level.getNextEntityId(). Ensure mappings are correct.", e);
             }
         }
         else {
@@ -142,6 +146,11 @@ public class SpigotBridge implements Software {
 
             entityCounter = atomicInteger;
         }
+    }
+
+    @Override
+    public WrappedTextDisplay wrapTextDisplay(TextDisplay display) {
+        return new SpigotTextDisplay(display);
     }
 
     @Override

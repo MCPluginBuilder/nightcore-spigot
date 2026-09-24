@@ -1,19 +1,21 @@
 package su.nightexpress.nightcore.chat;
 
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.jspecify.annotations.NonNull;
-import su.nightexpress.nightcore.NightCore;
-import su.nightexpress.nightcore.bridge.chat.UniversalChatEventHandler;
-import su.nightexpress.nightcore.bridge.chat.UniversalChatEvent;
-import su.nightexpress.nightcore.manager.SimpleManager;
-import su.nightexpress.nightcore.util.bridge.Software;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.jspecify.annotations.NonNull;
+
+import su.nightexpress.nightcore.NightCore;
+import su.nightexpress.nightcore.bridge.chat.UniversalChatEvent;
+import su.nightexpress.nightcore.bridge.chat.UniversalChatEventHandler;
+import su.nightexpress.nightcore.manager.SimpleManager;
+import su.nightexpress.nightcore.util.bridge.Software;
+import su.nightexpress.nightcore.util.text.night.NightMessage;
 
 public class ChatManager extends SimpleManager<NightCore> {
 
@@ -49,7 +51,8 @@ public class ChatManager extends SimpleManager<NightCore> {
 
     private void handleEvent(@NonNull EventPriority priority, @NonNull Supplier<UniversalChatEvent> supplier) {
         List<UniversalChatEventHandler> handlers = this.handlerMap.get(priority);
-        if (handlers == null || handlers.isEmpty()) return;
+        if (handlers == null || handlers.isEmpty())
+            return;
 
         UniversalChatEvent event = supplier.get();
 
